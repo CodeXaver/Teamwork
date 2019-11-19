@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 }));
   app.use(bodyParser.json());
 // Bundle API routes.
-app.use('/api', api);
+app.use('/', api);
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 // app.get('*', (req, res) => res.status(200).send({
