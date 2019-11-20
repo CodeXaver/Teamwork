@@ -1,0 +1,37 @@
+{
+  "name": "teamwork",
+  "version": "1.0.0",
+  "description": "Api for Teamwork Application",
+  "scripts": {
+    "test-init": "./node_modules/jasmine-node/bin/jasmine-node.js init",
+    "test": "jasmine test/spec/employee.spec.js",
+    "dev-start": "nodemon ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeXaver/Teamwork.git"
+  },
+  "author": "Mitchel Okomor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeXaver/Teamwork/issues"
+  },
+  "homepage": "https://github.com/CodeXaver/Teamwork#readme",
+  "devDependencies": {
+    "eslint": "^6.6.0"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.17.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jasmine-node": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "multer-storage-cloudinary": "^2.2.1",
+    "pg": "^7.12.1",
+    "request": "^2.88.0"
+  }
+}
