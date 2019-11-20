@@ -34,7 +34,7 @@ router.delete('/employee/:id', auth, role, employeeController.deleteAccount);
 router.put('/employee/:id', auth, employeeController.updateAcount);
 
 //authentication
-router.post('/login', employeeController.login);
+router.post('/signin', employeeController.login);
 
 
 //retrieve  all gif

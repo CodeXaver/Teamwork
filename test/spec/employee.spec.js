@@ -1,8 +1,29 @@
 var request = require("request");
 
-var base_url = "http://localhost:8000/api/"
+var base_url = "http://localhost:8000/"
 
 describe("Employee api", ()=> {
+
+  beforeAll(()=> {
+    let formData ={
+      email : "peterpaul@gmail.com",
+    password :"peter"
+    }
+
+     request.post({url:base_url + "signin", formData: formData}, (error, response)=> {
+      console.log('error:', error); 
+      console.log('statusCode:', response && response.statusCode); 
+      console.log('body:', response);
+      console.log(formData);
+   
+});
+
+  }, 2000 );
+
+  afterAll(()=> {
+  
+  });
+
 
           // create employees
           describe("post /employees", ()=> {
@@ -40,7 +61,7 @@ describe("Employee api", ()=> {
         });
    });
      } )
-    
+  /**   
       // one employees
       describe("GET /employees", ()=> {
         it("returns status code 200", (done)=> {
@@ -91,5 +112,7 @@ describe("Employee api", ()=> {
         });
    });
      } )
+*/
+    }); 
 
-    });
+    

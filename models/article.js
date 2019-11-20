@@ -3,29 +3,27 @@ const db = require('../services/database');
 
 class Article{
 
-constructor(id, empId, title, body, imgUrl, dateCreated, isInappropriate, tag){
+constructor(id, empId, title, body, dateCreated, tag){
 
     this.id = id;
     this.empId = empId;
     this.title = title;
     this.body = body;
-    this.imgUrl = imgUrl;
 this.dateCreated = dateCreated;
-this.isInappropriate = isInappropriate;
 this.tag = tag;
 }
 
 set article(val){
-([this.id, this.empId, this.title, this.body, this.imgUrl, this.dateCreated, this.isInappropriate, this.tag])
+([this.id, this.empId, this.title, this.body, this.dateCreated, this.tag])
 }
 
 get employee(){
-    return([this.firstName, this.lastName, this.email, this.password, this.gender, this.jobRole, this.department, this.address, this.dateOfBirth]);
+    return([this.id, this.empId, this.title, this.body, this.dateCreated, this.tag]);
 }
 
  async save(){
     try{
-  let queryString = `INSERT INTO article(id, empId, title, body, imgUrl, dateCreated, isInappropriate, tag) VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning *`;
+  let queryString = `INSERT INTO article(id, empId, title, body, dateCreated, tag) VALUES($1, $2, $3, $4, $5) returning *`;
  return   db.query(queryString, this.article);
  }
     catch(error){
