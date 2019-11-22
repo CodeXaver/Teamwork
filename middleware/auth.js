@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
         error: 'expired or invalid token'
       });
     } else {
+      console.log("Just leaving auth middleware");
       next();
     }
   } catch(error) {

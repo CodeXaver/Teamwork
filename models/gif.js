@@ -3,38 +3,46 @@ const db = require('../services/database');
 
 class GIf{
 
-constructor(id, empId, imgUrl, dateCreated, isInappropriate, tag){
-
-    this.id = id;
+constructor(empId, title, imgUrl, date, tag){
     this.empId = empId;
+    this.title = title;
     this.imgUrl = imgUrl;
-this.dateCreated = dateCreated;
-this.isInappropriate = isInappropriate;
+this.date = date;
 this.tag = tag;
 }
 
 set gif(val){
-([this.id, this.empId, this.title, this.body, this.imgUrl, this.dateCreated, this.isInappropriate, this.tag])
+([this.empId, this.title, this.imgUrl, this.date, this.tag])
 }
 
 get gif(){
-    return([this.firstName, this.lastName, this.email, this.password, this.gender, this.jobRole, this.department, this.address, this.dateOfBirth]);
+    return([this.empId, this.title, this.imgUrl, this.date, this.tag]);
 }
 
  async save(){
     try{
-   let queryString = `INSERT INTO article(id, empId, title, body, imgUrl, dateCreated, isInappropriate, tag) VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning *`;
- return   db.query(queryString, this.article);
+   let queryString = `INSERT INTO gif(emp_id, title, img_url, date_created, tag) VALUES($1, $2, $3, $4, $5) returning *`;
+ return   db.query(queryString, this.gif);
     } catch(error){
         console.log(error);
     }
  
  }
 
-
-async view(id){
+ async edit(artId, empId){
     try{
- let queryString = `SELECT * FROM article WHERE id=${id}`
+        let queryString = `UPDATE gif SET title=$1, img_url=$2, date_updated=$3, tag=$4 WHERE id=${artId} AND emp_id=${empId} returning *`;
+        console.log([this.title, this.body, this.date, this.tag]);   
+        return db.query(queryString, [this.title, this.body, this.date, this.tag]);
+           } catch(error){
+              console.log(error); 
+           } 
+
+ }
+
+async viewOne(id){
+    try{
+ let queryString = `SELECT * FROM gif WHERE id=${id}`
  return db.query(queryString);
     
     } catch(error){
@@ -45,7 +53,7 @@ async view(id){
 async viewAll(){
 
     try{
-    let queryString = `SELECT * FROM article`
+    let queryString = `SELECT * FROM gif`
  return db.query(queryString);
     } catch(error){
      console.log(error);   

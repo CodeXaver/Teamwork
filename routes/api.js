@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const employeeController = require('../controller/employee');
 const articleController = require('../controller/article');
+const gifController = require('../controller/gif');
 const imagePaser = require('../middleware/upload');
 const auth = require('../middleware/auth');
 const role = require('../middleware/role');
@@ -41,29 +42,18 @@ router.post('/signin', employeeController.login);
 
 
 //retrieve  all gif
-router.get('/gifs', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
-}) );
+router.get('/gifs/:empId', auth, gifController.allGifs );
 //retrieve a gif
-router.get('/gif/id', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
-}) );
+router.get('/gif/:id/:empId', auth, gifController.gif );
 
 //save gif
-router.post('/gif', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
-}) );
-
+router.post('/gif/:empId',auth, imagePaser.single("image"), gifController.createGif );
 
 //retrieve gif
-router.delete('/gif/id', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
-}) );
+router.delete('/gif/id/:empId', auth, gifController.deleteGif);
 
-//retrieve gif
-router.put('/gif/id', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
-}) );
+//update gif
+router.put('/gif/:id/empId', auth, gifController.updateGif );
 
 
 
@@ -93,7 +83,7 @@ router.post('/comments/id', (req, res) => res.status(200).send({
 }) );
 
 //save comment for a gif
-('/comments/gifid', (req, res) => res.status(200).send({
+router.post('/comments/gifid', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',
 }) );
 
