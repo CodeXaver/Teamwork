@@ -4,6 +4,7 @@ const employeeController = require('../controller/employee');
 const articleController = require('../controller/article');
 const gifController = require('../controller/gif');
 const commentController = require('../controller/comment');
+const flagController = require('../controller/flag');
 const imagePaser = require('../middleware/upload');
 const auth = require('../middleware/auth');
 const role = require('../middleware/role');
@@ -75,7 +76,10 @@ router.patch('/article/:id/:empId', auth, articleController.updateArticle );
 //delete an article
 router.delete('/article/:id/:empId', auth, articleController.deleteArticle);
 
-
+//view article by date with most rescent
+router.get('/articles/recent', (req, res) => res.status(200).send({
+  message: 'Welcome to the beginning of nothingness.',
+}) );
 
 
 //save comment for an article
@@ -90,10 +94,8 @@ router.patch('/comments/:postId/:empId', auth, commentController.updateComment);
 //Delete comment for an article
 router.delete('/comments/:commentId/:empId', auth, commentController.deleteComment);
 
-//view article by date with most rescent
-router.get('/articles/recent', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
-}) );
+router.post('/flag/:postId/:empId', auth, flagController.flagPost);
+router.delete('/flag/:postId/:empId', auth, flagController.deleteFlag);
 
 
 
