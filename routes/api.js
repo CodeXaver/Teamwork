@@ -3,6 +3,7 @@ const router = express.Router();
 const employeeController = require('../controller/employee');
 const articleController = require('../controller/article');
 const gifController = require('../controller/gif');
+const commentController = require('../controller/comment');
 const imagePaser = require('../middleware/upload');
 const auth = require('../middleware/auth');
 const role = require('../middleware/role');
@@ -33,7 +34,7 @@ router.get('/employee/:id',auth, employeeController.account);
 router.delete('/employee/:id', auth, role, employeeController.deleteAccount);
 
 //update employee account
-router.put('/employee/:id', auth, employeeController.updateAcount);
+router.patch('/employee/:id', auth, employeeController.updateAcount);
 
 //authentication
 router.post('/signin', employeeController.login);
@@ -53,7 +54,7 @@ router.post('/gif/:empId',auth, imagePaser.single("image"), gifController.create
 router.delete('/gif/id/:empId', auth, gifController.deleteGif);
 
 //update gif
-router.put('/gif/:id/empId', auth, gifController.updateGif );
+router.patch('/gif/:id/empId', auth, gifController.updateGif );
 
 
 
@@ -69,7 +70,7 @@ router.get('/article/:id/:empId', auth, articleController.article );
 router.post('/articles/:empId', auth, articleController.createArticle );
 
 //edit an article
-router.put('/article/:id/:empId', auth, articleController.updateArticle );
+router.patch('/article/:id/:empId', auth, articleController.updateArticle );
 
 //delete an article
 router.delete('/article/:id/:empId', auth, articleController.deleteArticle);
@@ -78,23 +79,22 @@ router.delete('/article/:id/:empId', auth, articleController.deleteArticle);
 
 
 //save comment for an article
-router.post('/comments/id', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
-}) );
+router.post('/comments/:postId/:empId', auth, commentController.createComment );
 
-//save comment for a gif
-router.post('/comments/gifid', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
-}) );
+//save comment for an article
+router.get('/comments/:postId/:empId', auth, commentController.allComments);
+
+//Edit comment for an article
+router.patch('/comments/:postId/:empId', auth, commentController.updateComment);
+
+//Delete comment for an article
+router.delete('/comments/:commentId/:empId', auth, commentController.deleteComment);
 
 //view article by date with most rescent
 router.get('/articles/recent', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',
 }) );
 
-//view a specified articlev
-router.get('/articles/id', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
-}) );
+
 
 module.exports = router;

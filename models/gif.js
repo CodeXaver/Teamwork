@@ -21,7 +21,7 @@ get gif(){
 
  async save(){
     try{
-   let queryString = `INSERT INTO gif(emp_id, title, img_url, date_created, tag) VALUES($1, $2, $3, $4, $5) returning *`;
+   let queryString = `INSERT INTO article(emp_id, title, img_url, date_created, tag) VALUES($1, $2, $3, $4, $5) returning *`;
  return   db.query(queryString, this.gif);
     } catch(error){
         console.log(error);
@@ -31,7 +31,7 @@ get gif(){
 
  async edit(artId, empId){
     try{
-        let queryString = `UPDATE gif SET title=$1, img_url=$2, date_updated=$3, tag=$4 WHERE id=${artId} AND emp_id=${empId} returning *`;
+        let queryString = `UPDATE article SET title=$1, img_url=$2, date_updated=$3, tag=$4 WHERE id=${artId} AND emp_id=${empId} returning *`;
         console.log([this.title, this.body, this.date, this.tag]);   
         return db.query(queryString, [this.title, this.body, this.date, this.tag]);
            } catch(error){
@@ -42,7 +42,7 @@ get gif(){
 
 async viewOne(id){
     try{
- let queryString = `SELECT * FROM gif WHERE id=${id}`
+ let queryString = `SELECT * FROM article WHERE id=${id}`
  return db.query(queryString);
     
     } catch(error){
@@ -53,7 +53,7 @@ async viewOne(id){
 async viewAll(){
 
     try{
-    let queryString = `SELECT * FROM gif`
+    let queryString = `SELECT * FROM artcle`
  return db.query(queryString);
     } catch(error){
      console.log(error);   
@@ -62,10 +62,10 @@ async viewAll(){
     
 }
 
-async delete(id){
+async delete(gifId, empId){
     try{
- let queryString = `DELETE FROM gif WHERE id=${id}`
-    return  db.query(queryString, this.employee);
+ let queryString = `DELETE FROM article  WHERE id=${gifId} AND emp_id=${empId}`
+    return  db.query(queryString, this.gif);
     } catch(error){
 console.log(error);
     }
